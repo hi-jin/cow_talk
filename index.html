@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>hi-jin high-IT</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="./css/cowtalk.css">
+    </head>
+    <body onload="load_cowtalk();">
+        <div class="body-head">
+            <div class="item">
+                <a href="/"><img height=50px src="/img/home_icon.png"></a>
+            </div>
+            <div class="item" id="page-title">
+                카우톡
+            </div>
+            <div class="item">
+                <img height=50px src="/img/menu_icon.png">
+            </div>
+        </div>
+        <div class="main-content">
+            <p>
+                카카오톡 클론 코딩
+            </p>
+            <img width='300px' height='500px' id="main_img" src="./img/cow_talk_loading.png">
+            <div class="root-container" id="main_menu">
+                <div class="side-container">
+                    <div class="flex-container">
+                        <a href='javascript:void(0);' onclick='#'><img width="30px" height="30px" src="./img/human_icon.png"></a>
+                        <a href='javascript:void(0);' onclick='#'><img width="30px" height="30px" src="./img/chatting_icon.png"></a>
+                        <a href='javascript:void(0);' onclick='#'><img width="30px" height="30px" src="./img/more_info_icon.png"></a>
+                    </div>
+                    <div class="flex-container">
+                        <a href='javascript:void(0);' onclick='#'><img width="30px" height="30px" src="./img/bell_icon.jpg"></a>
+                    </div>
+                </div>
+                <div class="main-container">
+                    <div style='position: relative;'>
+                        <span style='position: absolute; left: 10px;'>친구</span>
+                        <span style='position: absolute; right: 10px;'>+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function load_cowtalk() {
+                setTimeout("after_loading();", 2000);
+            }
+            
+            function after_loading() {
+                document.getElementById("main_img").height = "0px";
+                document.getElementById("main_img").width = "0px";
+                display_main_menu();
+            }
+            
+            function display_main_menu() {
+                document.getElementById("main_menu").style.display = "inline-flex";
+            }
+        </script>
+    </body>
+</html>
