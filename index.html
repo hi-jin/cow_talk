@@ -35,14 +35,28 @@
                     </div>
                 </div>
                 <div class="main-container">
-                    <div style='position: relative;'>
+                    <div style='height: 30px;'>
                         <span style='position: absolute; left: 10px;'>친구</span>
                         <span style='position: absolute; right: 10px;'>+</span>
+                    </div>
+                    <div style='height: 30px;'>
+                        <input onKeyPress='if (event.keyCode==13) {search_name();}' style='width: 240px;' id='search-box' type='text' placeholder='이름 검색'>
+                    </div>
+                    <div style='height: 420px;' id="friends_list">
+                        
                     </div>
                 </div>
             </div>
         </div>
         <script>
+            function search_name() {
+                friend_name = document.getElementById('search-box').value
+                if (friend_name === "") {
+                    return;
+                }
+                alert(friend_name)
+            }
+            
             function load_cowtalk() {
                 setTimeout("after_loading();", 2000);
             }
