@@ -37,7 +37,7 @@
                 <div class="main-container">
                     <div style='height: 30px;'>
                         <span style='position: absolute; left: 10px;'>친구</span>
-                        <span style='position: absolute; right: 10px;'>+</span>
+                        <span style='position: absolute; right: 10px; top:5px;'><button style='font-size:25px;' onclick='add_friend();'>+</button></span>
                     </div>
                     <div style='height: 30px;'>
                         <input onKeyPress='if (event.keyCode==13) {search_name();}' style='width: 240px;' id='search-box' type='text' placeholder='이름 검색'>
@@ -49,6 +49,20 @@
             </div>
         </div>
         <script>
+            var friends = []
+            
+            function add_friend() {
+                var friend_name = prompt("추가할 친구 이름을 입력하세요.");
+                if (friend_name === "") {return;}
+                friends.push(friend_name);
+                
+                var friends_list_div = document.getElementById("friends_list");
+                
+                new_div = friend_name + "\n";
+                
+                friends_list_div.innerText += new_div;
+            }
+            
             function search_name() {
                 friend_name = document.getElementById('search-box').value
                 if (friend_name === "") {
