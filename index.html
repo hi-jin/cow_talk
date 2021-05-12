@@ -26,7 +26,7 @@
             <div class="root-container" id="main_menu">
                 <div class="side-container">
                     <div class="flex-container">
-                        <a href='javascript:void(0);' onclick='#'><img width="30px" height="30px" src="./img/human_icon.png"></a>
+                        <a href='javascript:void(0);' onclick='show_list(friends);'><img width="30px" height="30px" src="./img/human_icon.png"></a>
                         <a href='javascript:void(0);' onclick='#'><img width="30px" height="30px" src="./img/chatting_icon.png"></a>
                         <a href='javascript:void(0);' onclick='#'><img width="30px" height="30px" src="./img/more_info_icon.png"></a>
                     </div>
@@ -50,25 +50,75 @@
         </div>
         <script>
             var friends = []
+            var searched_friends = []
+            var friend_count = 0;
+            
+            class Friend {
+                constructor(name, unique_num) {
+                    this.name = name;
+                    this.unique_num = unique_num;
+                    this.chat_data = ""
+                }
+            }
             
             function add_friend() {
                 var friend_name = prompt("추가할 친구 이름을 입력하세요.");
                 if (friend_name === "") {return;}
-                friends.push(friend_name);
+                if (friend_name === null) {return;}
+                var new_friend = new Friend(friend_name, friend_count);
+                friend_count += 1;
+                
+                friends.push(new_friend);
                 
                 var friends_list_div = document.getElementById("friends_list");
+                var new_div = document.createElement("a");
+                new_div.innerText = friend_name;
+                new_div.setAttribute("href", "javascript:void(0);");
+                new_div.setAttribute("class", "friend_obj");
+                new_div.setAttribute("unique_num", new_friend.unique_num);
+                new_div.setAttribute("onclick", "");
                 
-                new_div = friend_name + "\n";
-                
-                friends_list_div.innerText += new_div;
+                friends_list_div.appendChild(new_div);
             }
             
             function search_name() {
+                searched_friends = []
                 friend_name = document.getElementById('search-box').value
                 if (friend_name === "") {
+                    show_list(friends);
                     return;
                 }
-                alert(friend_name)
+                if (friend_name === null) {
+                    return;
+                }
+                for (var i = 0; i < friends.length; i++) {
+                    if (friends[i].name.includes(friend_name)) {
+                        searched_friends.push(friends[i]);
+                    }
+                }
+                
+                show_list(searched_friends);
+            }
+            
+            function show_list(list) {
+                var friend_objs = document.getElementsByClassName("friend_obj");
+                for (var i = friend_objs.length - 1; i >= 0; i--) {
+                    var parent = friend_objs[i].parentElement;
+                    parent.removeChild(friend_objs[i]);
+                }
+                if (list.length === 0) {return;}
+                
+                for (var i = 0; i < list.length; i++) {
+                    var friends_list_div = document.getElementById("friends_list");
+                    var new_div = document.createElement("a");
+                    new_div.innerText = list[i].name;
+                    new_div.setAttribute("href", "javascript:void(0);");
+                    new_div.setAttribute("class", "friend_obj");
+                    new_div.setAttribute("unique_num", list[i].unique_num);
+                    new_div.setAttribute("onclick", "");
+
+                    friends_list_div.appendChild(new_div);
+                }
             }
             
             function load_cowtalk() {

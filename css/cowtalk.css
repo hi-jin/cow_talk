@@ -31,3 +31,7 @@
 #friends_list {
     overflow-y: scroll;
 }
+
+.friend_obj {
+    display: block;
+}
