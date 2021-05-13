@@ -58,6 +58,16 @@
                             
                         </div>
                     </div>
+                    <div id='chat_room_view' style='display: none;'>
+                        <div style='height: 30px;'>
+                            <span style='position: absolute; left: 10px;' id='chat_room_name'>
+                            
+                            </span>
+                        </div>
+                        <div style='height: 450px;' id="chat">
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,7 +78,6 @@
             
             var chats = []
             var searched_chats = []
-            var chat_count = 0;
             
             class Friend {
                 constructor(name, unique_num) {
@@ -78,9 +87,10 @@
             }
             
             class Chat {
-                constructor(participants) {
-                    this.participants = participants;
+                constructor(participant) {
+                    this.participant = participant;
                     this.chat_data = [];
+                    this.unique_num = this.participant.unique_num;
                 }
             }
             
@@ -90,6 +100,42 @@
                     this.time = time;
                     this.msg = msg;
                 }
+            }
+            
+            function start_chat_room(unique_num) {
+                for (var i = 0; i < chats.length; i++) {
+                    if (chats[i].unique_num === unique_num) {
+                        enter_chat_room(unique_num);
+                        return;
+                    }
+                }
+                create_chat_room(unique_num);
+                enter_chat_room(unique_num);
+            }
+            
+            function enter_chat_room(unique_num) {
+                
+            }
+            
+            function create_chat_room(unique_num) {
+                var friend;
+                for (var i = 0; i < friends.length; i++) {
+                    if (friends[i].unique_num === unique_num) {
+                        friend = friends[i]
+                    }
+                }
+                var chat = new Chat(friend);
+                chats.push(chat);
+                
+                var chat_list_div = document.getElementById("chat_list");
+                var new_div = document.createElement("a");
+                new_div.innerText = chat.participant.name;
+                new_div.setAttribute("href", "javascript:void(0);");
+                new_div.setAttribute("class", "chat_obj");
+                new_div.setAttribute("unique_num", chat.unique_num);
+                new_div.setAttribute("onclick", "enter_chat_room(" + chat.unique_num + ")");
+                
+                chat_list_div.appendChild(new_div);
             }
             
             function add_friend() {
@@ -107,7 +153,7 @@
                 new_div.setAttribute("href", "javascript:void(0);");
                 new_div.setAttribute("class", "friend_obj");
                 new_div.setAttribute("unique_num", new_friend.unique_num);
-                new_div.setAttribute("onclick", "");
+                new_div.setAttribute("onclick", "start_chat_room(" + new_friend.unique_num + ")");
                 
                 friends_list_div.appendChild(new_div);
             }
@@ -147,7 +193,7 @@
                     new_div.setAttribute("href", "javascript:void(0);");
                     new_div.setAttribute("class", "friend_obj");
                     new_div.setAttribute("unique_num", list[i].unique_num);
-                    new_div.setAttribute("onclick", "");
+                    new_div.setAttribute("onclick", "start_chat_room(" + list[i].unique_num + ")");
 
                     friends_list_div.appendChild(new_div);
                 }
@@ -170,11 +216,13 @@
             function show_friend_list() {
                 document.getElementById("friend_list_view").style.display = "";
                 document.getElementById("chat_list_view").style.display = "none";
+                document.getElementById("chat_room_view").style.display = "none";
             }
             
             function show_chat_list() {
                 document.getElementById("friend_list_view").style.display = "none";
                 document.getElementById("chat_list_view").style.display = "";
+                document.getElementById("chat_room_view").style.display = "none";
             }
         </script>
     </body>
