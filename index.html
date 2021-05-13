@@ -66,11 +66,29 @@
             var searched_friends = []
             var friend_count = 0;
             
+            var chats = []
+            var searched_chats = []
+            var chat_count = 0;
+            
             class Friend {
                 constructor(name, unique_num) {
                     this.name = name;
                     this.unique_num = unique_num;
-                    this.chat_data = ""
+                }
+            }
+            
+            class Chat {
+                constructor(participants) {
+                    this.participants = participants;
+                    this.chat_data = [];
+                }
+            }
+            
+            class Msg {
+                constructor(name, time, msg) {
+                    this.name = name;
+                    this.time = time;
+                    this.msg = msg;
                 }
             }
             
