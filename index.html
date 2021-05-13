@@ -27,7 +27,7 @@
                 <div class="side-container">
                     <div class="flex-container">
                         <a href='javascript:void(0);' onclick='show_list(friends);'><img width="30px" height="30px" src="./img/human_icon.png"></a>
-                        <a href='javascript:void(0);' onclick='#'><img width="30px" height="30px" src="./img/chatting_icon.png"></a>
+                        <a href='javascript:void(0);' onclick='show_chat_list();'><img width="30px" height="30px" src="./img/chatting_icon.png"></a>
                         <a href='javascript:void(0);' onclick='#'><img width="30px" height="30px" src="./img/more_info_icon.png"></a>
                     </div>
                     <div class="flex-container">
@@ -35,15 +35,28 @@
                     </div>
                 </div>
                 <div class="main-container">
-                    <div style='height: 30px;'>
-                        <span style='position: absolute; left: 10px;'>친구</span>
-                        <span style='position: absolute; right: 10px; top:5px;'><button style='font-size:25px;' onclick='add_friend();'>+</button></span>
+                    <div id='friend_list_view'>
+                        <div style='height: 30px;'>
+                            <span style='position: absolute; left: 10px;'>친구</span>
+                            <span style='position: absolute; right: 10px; top:5px;'><button style='font-size:25px;' onclick='add_friend();'>+</button></span>
+                        </div>
+                        <div style='height: 30px;'>
+                            <input onKeyPress='if (event.keyCode==13) {search_name();}' style='width: 240px;' id='name-search-box' type='text' placeholder='이름 검색'>
+                        </div>
+                        <div style='height: 420px;' id="friends_list">
+                            
+                        </div>
                     </div>
-                    <div style='height: 30px;'>
-                        <input onKeyPress='if (event.keyCode==13) {search_name();}' style='width: 240px;' id='search-box' type='text' placeholder='이름 검색'>
-                    </div>
-                    <div style='height: 420px;' id="friends_list">
-                        
+                    <div id='chat_list_view' style='display: none;'>
+                        <div style='height: 30px;'>
+                            <span style='position: absolute; left: 10px;'>채팅</span>
+                        </div>
+                        <div style='height: 30px;'>
+                            <input onKeyPress='if (event.keyCode==13) {search_chat();}' style='width: 240px;' id='chat-search-box' type='text' placeholder='채팅방 이름, 참여자 검색'>
+                        </div>
+                        <div style='height: 420px;' id="chat_list">
+                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,7 +96,7 @@
             
             function search_name() {
                 searched_friends = []
-                friend_name = document.getElementById('search-box').value
+                friend_name = document.getElementById('name-search-box').value
                 if (friend_name === "") {
                     show_list(friends);
                     return;
@@ -101,6 +114,7 @@
             }
             
             function show_list(list) {
+                show_friend_list();
                 var friend_objs = document.getElementsByClassName("friend_obj");
                 for (var i = friend_objs.length - 1; i >= 0; i--) {
                     var parent = friend_objs[i].parentElement;
@@ -133,6 +147,16 @@
             
             function display_main_menu() {
                 document.getElementById("main_menu").style.display = "inline-flex";
+            }
+            
+            function show_friend_list() {
+                document.getElementById("friend_list_view").style.display = "";
+                document.getElementById("chat_list_view").style.display = "none";
+            }
+            
+            function show_chat_list() {
+                document.getElementById("friend_list_view").style.display = "none";
+                document.getElementById("chat_list_view").style.display = "";
             }
         </script>
     </body>
